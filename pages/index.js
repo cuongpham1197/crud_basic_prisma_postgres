@@ -2,11 +2,13 @@ import { Inter } from 'next/font/google'
 import RemoveBtn from '@/components/RemoveBtn';
 import Link from 'next/link';
 import { HiPencilAlt } from "react-icons/hi";
+import axios from 'axios';
 
 const inter = Inter({ subsets: ['latin'] })
 
+// /** @param {import('next').InferGetServerSidePropsType<typeof getServerSideProps> } props */
 export default function Home({ topics }) {
-  // console.log("topic: ", topics);
+  console.log("topic: ", topics);
   return (
     <>
       {topics && topics.map((t) => (
@@ -33,9 +35,11 @@ export default function Home({ topics }) {
 
 
 export async function getServerSideProps() {
-  const res = await fetch("http://localhost:3000/api/topics");
+  // const res = await fetch("http://localhost:3000/api/topics");
   // console.log("res: ", res)
-  const topics = await res.json();
-  console.log("topics: ", topics);
+  // const topics = await res.json();
+  // console.log("topics: ", topics);
+
+  const topics = await axios.get("http://localhost:3000/api/topics").then((res) => res.data)
   return { props: { topics: topics.topics } }
 }

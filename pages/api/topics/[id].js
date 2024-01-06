@@ -6,7 +6,6 @@ async function handler(req, res) {
     if (req.method === "PUT") {
         const { id } = req.query;
         const { newTitle: title, newDescription: description } = await req.body;
-        // const body = await req.body;
         await prisma.topic.update({
             where: {
                 id: id,

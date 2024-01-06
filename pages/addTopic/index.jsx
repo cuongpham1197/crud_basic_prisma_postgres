@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { useRouter } from "next/navigation";
+import axios from "axios";
 
 export default function AddTopic() {
     const router = useRouter();
@@ -15,15 +16,21 @@ export default function AddTopic() {
         }
 
         try {
-            const res = await fetch("http://localhost:3000/api/topics", {
-                method: "POST",
-                headers: {
-                    "Content-type": "application/json",
-                },
-                body: JSON.stringify({ title, description }),
+            // const res = await fetch("http://localhost:3000/api/topics", {
+            //     method: "POST",
+            //     headers: {
+            //         "Content-type": "application/json",
+            //     },
+            //     body: JSON.stringify({ title, description }),
+            // });
+
+            const res = await axios({
+                method: 'post',
+                url: 'http://localhost:3000/api/topics',
+                data: { title, description },
             });
 
-            if (res.ok) {
+            if (res) {
                 router.push("/")
             }
             else { throw new Error("Failed to create") }

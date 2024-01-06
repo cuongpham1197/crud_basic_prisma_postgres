@@ -5,7 +5,6 @@ const prisma = new PrismaClient();
 
 export default async function handler(req, res) {
   if (req.method === "POST") {
-    // const { title, description } = await req.body;
     const body = await req.body;
     await prisma.topic.create({ data: body });
     res.status(201).json({ message: "Topic Created" })
